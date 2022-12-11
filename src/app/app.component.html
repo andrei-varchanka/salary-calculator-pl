@@ -1,27 +1,56 @@
-<table>
-  <tr>
-    <th *ngFor="let header of headers">{{header}}</th>
-  </tr>
-  <tr *ngFor="let month of months; let i = index">
-    <td>{{month}}</td>
-    <td>{{bruttoMonthlySalaries[i].toFixed(2)}}</td>
-    <td>{{ubezpieczenieEmerytalne[i].toFixed(2)}}</td>
-    <td>{{ubezpieczenieRentowe[i].toFixed(2)}}</td>
-    <td>{{ubezpieczenieChorobowe[i].toFixed(2)}}</td>
-    <td>{{ubezpieczenieZdrowotne[i].toFixed(2)}}</td>
-    <td>{{podstawaOpodatkowania[i].toFixed(2)}}</td>
-    <td>{{zaliczkaPit[i].toFixed(2)}}</td>
-    <td>{{nettoMonthlySalaries[i].toFixed(2)}}</td>
-  </tr>
-  <tr class="total">
-    <td>Total</td>
-    <td>{{bruttoSalaryTotal.toFixed(2)}}</td>
-    <td>{{ubezpieczenieEmerytalneTotal.toFixed(2)}}</td>
-    <td>{{ubezpieczenieRentoweTotal.toFixed(2)}}</td>
-    <td>{{ubezpieczenieChoroboweTotal.toFixed(2)}}</td>
-    <td>{{ubezpieczenieZdrowotneTotal.toFixed(2)}}</td>
-    <td>{{podstawaOpodatkowaniaTotal.toFixed(2)}}</td>
-    <td>{{zaliczkaPitTotal.toFixed(2)}}</td>
-    <td>{{nettoTotal.toFixed(2)}}</td>
-  </tr>
-</table>
+<mat-card class="form-card">
+  <form [formGroup]="form">
+    <div class="input">
+      <mat-form-field>
+        <input matInput placeholder="Brutto monthly salary" formControlName="bruttoMonthlySalary"/>
+      </mat-form-field>
+    </div>
+    <div class="radio-group">
+      <label class="label">Autorskie koszty:</label>
+      <mat-radio-group formControlName="kosztyAutorskieIncluded">
+        <mat-radio-button class="option" [value]="true">Yes</mat-radio-button>
+        <mat-radio-button class="option" [value]="false">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <button class="submit" mat-flat-button color="primary" (click)="calculate()">Calculate</button>
+  </form>
+</mat-card>
+
+<mat-card>
+  <table>
+    <tr>
+      <th *ngFor="let header of headers">{{header}}</th>
+    </tr>
+    <tr *ngFor="let month of months; let i = index">
+      <td>{{month}}</td>
+      <td>{{bruttoMonthlySalaries[i].toFixed(2)}}</td>
+      <td>{{ubezpieczenieEmerytalne[i].toFixed(2)}}</td>
+      <td>{{ubezpieczenieRentowe[i].toFixed(2)}}</td>
+      <td>{{ubezpieczenieChorobowe[i].toFixed(2)}}</td>
+      <td>{{baseAmounts[i].toFixed(2)}}</td>
+      <td>{{ubezpieczenieZdrowotne[i].toFixed(2)}}</td>
+      <td>{{kosztyAutorskie[i].toFixed(2)}}</td>
+      <td>{{KOSZT_PRAC_MEJSC.toFixed(2)}}</td>
+      <td>{{podstawaOpodatkowania[i].toFixed(2)}}</td>
+      <td>{{zaliczkaPit[i].toFixed(2)}}</td>
+      <td>{{nettoMonthlySalaries[i].toFixed(2)}}</td>
+    </tr>
+    <tr class="total">
+      <td>Total</td>
+      <td>{{bruttoSalaryTotal.toFixed(2)}}</td>
+      <td>{{ubezpieczenieEmerytalneTotal.toFixed(2)}}</td>
+      <td>{{ubezpieczenieRentoweTotal.toFixed(2)}}</td>
+      <td>{{ubezpieczenieChoroboweTotal.toFixed(2)}}</td>
+      <td>{{baseAmountsTotal.toFixed(2)}}</td>
+      <td>{{ubezpieczenieZdrowotneTotal.toFixed(2)}}</td>
+      <td>{{kosztyAutorskieTotal.toFixed(2)}}</td>
+      <td>{{KOSZT_PRAC_MEJSC * months.length}}</td>
+      <td>{{podstawaOpodatkowaniaTotal.toFixed(2)}}</td>
+      <td>{{zaliczkaPitTotal.toFixed(2)}}</td>
+      <td>{{nettoTotal.toFixed(2)}}</td>
+    </tr>
+  </table>
+  <div class="result-percent">
+    Netto/brutto ratio: <span>{{nettoPercent.toFixed(2) + '%'}}</span>
+  </div>
+</mat-card>
