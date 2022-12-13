@@ -54,3 +54,37 @@
     Netto/brutto ratio: <span>{{nettoPercent.toFixed(2) + '%'}}</span>
   </div>
 </mat-card>
+
+<mat-card>
+  <div class="charts">
+    <ngx-charts-bar-vertical
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="nettoSalaries"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="false"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [yScaleMin]="30000"
+    [yScaleMax]="300000"
+    [xAxisLabel]="'Monthly gross salary'"
+    [yAxisLabel]="'Annual netto salary'">
+  </ngx-charts-bar-vertical>
+  
+    <ngx-charts-bar-vertical
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="nettoPercents"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="false"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [yScaleMin]="55"
+    [yScaleMax]="80"
+    [xAxisLabel]="'Monthly gross salary'"
+    [yAxisLabel]="'Efficiency'">
+  </ngx-charts-bar-vertical>
+  </div>
+</mat-card>

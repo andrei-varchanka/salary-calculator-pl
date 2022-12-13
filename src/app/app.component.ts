@@ -80,14 +80,24 @@ export class AppComponent implements OnInit {
 
   nettoPercent = 0;
 
+  nettoPercents: any[] = [];
+  nettoSalaries: any[] = [];
+  view: any[] = [600, 300];
+  colorScheme = { domain: ['#5AA454'] };
+
   constructor(private fb: FormBuilder) {
     this.form = fb.group({
       bruttoMonthlySalary: [18205],
       kosztyAutorskieIncluded: [false]
     });
+    this.form.get('kosztyAutorskieIncluded').valueChanges.subscribe(value => {
+      this.calculateRange();
+      this.calculate();
+    });
   }
 
   ngOnInit() {
+    this.calculateRange();
     this.calculate();
   }
 
@@ -115,10 +125,11 @@ export class AppComponent implements OnInit {
     this.nettoPercent = 0;
   }
 
-  calculate() {
+  calculate(bruttoSalaryParam?: number) {
+    let bruttoSalary = bruttoSalaryParam || +this.form.get('bruttoMonthlySalary')?.value;
     this.init();
     for (let i = 0; i < this.months.length; i++) {
-      this.bruttoMonthlySalaries[i] = +this.form.get('bruttoMonthlySalary')?.value;
+      this.bruttoMonthlySalaries[i] = bruttoSalary;
       this.bruttoSalaryTotal += this.bruttoMonthlySalaries[i];
       if (this.bruttoSalaryTotal <= this.UB_EMER_RENT_LIMIT) {
         this.ubezpieczenieEmerytalne[i] = this.bruttoMonthlySalaries[i] * this.UB_EMER_RATE;
@@ -163,4 +174,15 @@ export class AppComponent implements OnInit {
     }
     this.nettoPercent = this.nettoTotal / this.bruttoSalaryTotal * 100;
   } 
+
+  calculateRange() {
+    this.nettoSalaries = [];
+    this.nettoPercents = [];
+    for (let i = 5000; i <= 35000;) {
+      this.calculate(i);
+      this.nettoSalaries.push({name: i, value: this.nettoTotal.toFixed(2)});
+      this.nettoPercents.push({name: i, value: this.nettoPercent.toFixed(2)});
+      i+=1000;
+    }
+  }
 }

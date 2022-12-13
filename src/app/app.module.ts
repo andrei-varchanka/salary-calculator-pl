@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NoopAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxChartsModule,
     MatCheckboxModule, MatRadioModule, MatInputModule, MatButtonModule, MatCardModule,
   ],
   providers: [],
