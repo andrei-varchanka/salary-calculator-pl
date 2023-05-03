@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
   view: any[] = [600, 300];
   colorScheme = { domain: ['#5AA454'] };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
     this.form = fb.group({
       bruttoMonthlySalary: [18205],
       kosztyAutorskieIncluded: [false]
